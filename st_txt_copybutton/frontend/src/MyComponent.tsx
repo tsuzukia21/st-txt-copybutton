@@ -12,15 +12,20 @@ interface State {
 }
 
 class TextClipboardComponent extends StreamlitComponentBase<State> {
-  public state: State = { textData: null, error: null };
-
+  state: State = {
+    textData: null,
+    error: null
+  };
   private handleButtonClick = async (): Promise<void> => {
     try {
       const textToCopy = String(this.props.args["text_to_copy"]);
       await navigator.clipboard.writeText(textToCopy);
-      this.setState({ textData: textToCopy, error: null }, () => {
-        Streamlit.setComponentValue("Copied: " + textToCopy);
-      });
+      
+      // 一瞬だけTrueを設定し、その後すぐにFalseに戻す
+      Streamlit.setComponentValue(true);
+      setTimeout(() => {
+        Streamlit.setComponentValue(false);
+      }, 1000);
     } catch (err) {
       if (err instanceof DOMException && err.name === "NotAllowedError") {
         console.log("Access to the clipboard was denied.");
@@ -46,7 +51,7 @@ class TextClipboardComponent extends StreamlitComponentBase<State> {
       border: `1px solid ${theme.textColor}40`,
       borderRadius: "8px",
       cursor: "pointer",
-      fontSize: "14px",
+      fontSize: "15px",
       outline: "none",
       transition: "color 0.3s, border-color 0.3s",
       display: "inline-block",

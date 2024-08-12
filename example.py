@@ -8,11 +8,5 @@ st.write("Enter text in the text area below and click the button to copy it to t
 text_to_copy = st.text_area("Text to copy", "Enter text here", height=100)
 
 # Copy button
-copy_result = txt_copy(label="Copy to clipboard", text_to_copy=text_to_copy, key="text_clipboard")
-
-if copy_result:
-    st.success(f"{copy_result}")
-else:
-    st.info("Click the button to copy the text.")
-    
-a = st.button("Click me")
+if txt_copy(label="Copy to clipboard", text_to_copy=text_to_copy, key="text_clipboard"):
+    st.toast("Text copied to clipboard!")

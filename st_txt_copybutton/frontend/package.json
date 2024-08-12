@@ -1,6 +1,6 @@
 {
-  "name": "st_img_pastebutton",
-  "version": "0.0.4",
+  "name": "st_txt_copybutton",
+  "version": "0.0.3",
   "private": true,
   "dependencies": {
     "baseui": "^12.2.0",
